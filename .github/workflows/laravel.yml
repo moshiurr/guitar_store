@@ -7,7 +7,7 @@ on:
     branches: [ "main", "feature/*" ]
 
 jobs:
-  laravel-tests:
+  guitar-store-init:
 
     runs-on: ubuntu-latest
 
