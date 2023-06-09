@@ -1,6 +1,17 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { ShoppingCartIcon } from '@heroicons/vue/24/outline'
+import Transaction from "@/Components/Transaction.vue";
+
+defineProps({
+    name: String,
+    date: String,
+    budget: Number,
+    total_expenses: Number,
+    recent_transactions: Array,
+})
+
 </script>
 
 <template>
@@ -8,15 +19,47 @@ import { Head } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Welcome, {{name}}!</h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+
+                <div class="flex justify-between p-6 shadow ">
+                    <div>
+                        <div>
+                            {{date}}
+                        </div>
+
+                        <div class="py-1">
+                            Budget: <strong>${{budget}}</strong>
+                        </div>
+
+                        <div class="">
+                            Total expenses: <strong>${{total_expenses}}</strong>
+                        </div>
+                    </div>
+                    <div class="border-r-2"></div>
+                    <div>
+<!--                        TODO: Add Chart-->
+                        Chart will be added later
+                    </div>
+                </div>
+
+                <div class="p-4 shadow">
+                    <div class="font-bold text-xl py-2">
+                        YOUR RECENT TRANSACTIONS :
+                    </div>
+                    <div>
+                        <ul role="list" class="divide-y divide-gray-100">
+                            <li v-for="transaction in recent_transactions" :key="transaction.id" class="flex justify-between gap-x-6 py-5">
+                                <Transaction :price="transaction.price" :name="transaction.name" :date="transaction.date" :time="transaction.time" :isDebit="transaction.isDebit"/>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+
     </AuthenticatedLayout>
 </template>
