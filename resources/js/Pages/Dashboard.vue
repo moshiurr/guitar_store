@@ -1,8 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { ShoppingCartIcon } from '@heroicons/vue/24/outline'
+import { Head, Link } from '@inertiajs/vue3';
 import Transaction from "@/Components/Transaction.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+
+
 
 defineProps({
     name: String,
@@ -44,6 +46,14 @@ defineProps({
 <!--                        TODO: Add Chart-->
                         Chart will be added later
                     </div>
+                </div>
+
+                <div class="p-4 text-center mx-auto" >
+                    <Link :href="route('expense.index')">
+                        <PrimaryButton class="bg-green-700 hover:bg-green-600 active:bg-green-700 focus:bg-green-700" type="button" @click="">Add Expense</PrimaryButton>
+                    </Link>
+                    <!--                    Todo: Add modification button-->
+                    <!--                    <SecondaryButton class="m-2" type="button" @click="">Modify Expense</SecondaryButton>-->
                 </div>
 
                 <div class="p-4 shadow">
