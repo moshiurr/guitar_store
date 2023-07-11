@@ -1,8 +1,20 @@
 <script setup>
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head} from "@inertiajs/vue3";
+import {Head, Link, useForm} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+
+const form = useForm({
+    name: '',
+    price: '',
+});
+
+const submit = () => {
+    form.post(route('expense.store'), {
+        onFinish: () => form.reset('name', 'price'),
+    });
+};
 </script>
 
 <template>
@@ -17,11 +29,11 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form class="space-y-6" action="" method="POST">
+                    <form class="space-y-6" @submit.prevent="submit">
                         <div>
                             <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Expense Name</label>
                             <div class="mt-2">
-                                <input id="name" name="name" type="text" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <input id="name" v-model="form.name" name="name" type="text" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
                         </div>
 
@@ -31,12 +43,15 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
                                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                     <span class="text-gray-500 sm:text-sm">$</span>
                                 </div>
-                                <input type="text" name="price" id="price" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0.00" />
+                                <input type="text" v-model="form.price" name="price" id="price" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0.00" />
                             </div>
                         </div>
 
                         <div>
                             <PrimaryButton type="submit">Add</PrimaryButton>
+                            <Link :href="route('dashboard')">
+                                <SecondaryButton type="cancel" class="ml-2">Cancel</SecondaryButton>
+                            </Link>
                         </div>
                     </form>
                 </div>
