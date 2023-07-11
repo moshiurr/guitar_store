@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
         })->name('expense.index');
 
         Route::post('/', function () {
-            return Inertia::render('Expense/Index');
+            return redirect()->route('dashboard');
         })->name('expense.store');
 
         Route::delete('/', function () {
