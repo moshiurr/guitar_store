@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $transactions = $transactionServices->getTransactions(auth()->user()->id);
 
         return Inertia::render('Dashboard',[
-            'name' => 'John Doe',
+            'name' => auth()->user()->name,
             'date' => Carbon::now()->format('l, d F Y'),
             'budget' => '5000',
             'total_expenses' => $transactions['total_expenses'],
