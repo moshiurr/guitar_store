@@ -14,13 +14,12 @@ class Transaction extends Model
     protected $fillable = [
         'description',
         'price',
-        'type',
+        'is_spent',
         'user_id',
     ];
 
     protected $appends = [
         'time',
-        'is_debit',
     ];
 
 
@@ -34,8 +33,8 @@ class Transaction extends Model
        return (new Carbon($this->created_at))->toDateString();
     }
 
-    public function getIsDebitAttribute()
+    public function getIsSpentAttribute($value)
     {
-        return $this->type == 'expense';
+        return $value == 'true';
     }
 }

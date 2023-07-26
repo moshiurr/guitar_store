@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->integer('user_id');
             $table->string('description')->nullable();
             $table->float('price')->default(0.00);
-            $table->enum('type', ['income', 'expense'])->default('expense');
+            $table->enum('is_spent', ['true', 'false'])->default('true');
             $table->timestamps();
         });
 
