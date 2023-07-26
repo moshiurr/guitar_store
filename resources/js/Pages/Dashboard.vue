@@ -63,7 +63,7 @@ defineProps({
                     <div>
                         <ul role="list" class="divide-y divide-gray-100">
                             <li v-for="transaction in recent_transactions" :key="transaction.id" class="flex justify-between gap-x-6 py-5">
-                                <Transaction :price="transaction.price" :name="transaction.description" :date="transaction.created_at" :time="transaction.time" :isDebit="transaction.isDebit"/>
+                                <Transaction :price="transaction.price" :name="transaction.description" :date="transaction.created_at" :time="transaction.time" :isDebit="transaction.is_spent"/>
                             </li>
                         </ul>
                     </div>

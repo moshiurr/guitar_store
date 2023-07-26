@@ -13,7 +13,7 @@ class TransactionServices
 
     public function getTransactions($user_id)
     {
-        $query = Transaction::select('id', 'price', 'description', 'created_at', 'type')
+        $query = Transaction::select('id', 'price', 'description', 'created_at', 'is_spent')
                             ->where('user_id', $user_id)
                             ->whereYear('created_at', date('Y'))
                             ->whereMonth('created_at', date('m'));

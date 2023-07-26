@@ -4,15 +4,24 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head, Link, useForm} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import {ref} from "vue";
+
+const types = [
+    {id: 0, name: 'Income'},
+    {id: 1, name: 'Expense'},
+]
+
 
 const form = useForm({
     name: '',
     price: '',
+    type: '',
 });
+
 
 const submit = () => {
     form.post(route('expense.store'), {
-        onFinish: () => form.reset('name', 'price'),
+        onFinish: () => form.reset('name', 'price', 'type'),
     });
 };
 </script>
@@ -45,6 +54,14 @@ const submit = () => {
                                 </div>
                                 <input type="text" v-model="form.price" name="price" id="price" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="0.00" />
                             </div>
+                        </div>
+
+                        <div>
+                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select type</label>
+                            <select v-model="form.type" id="type" class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <option value="" selected disabled>Select a type</option>
+                                <option v-for="type in types" :key="type.id" :value="type.id">{{ type.name }}</option>
+                            </select>
                         </div>
 
                         <div>
