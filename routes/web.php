@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -27,32 +28,7 @@ Route::get('/login', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard',[
-            'name' => 'John Doe',
-            'date' => 'June 8, 2023',
-            'budget' => '5000',
-            'total_expenses' => '2000',
-            'recent_transactions' => [
-                [
-                    "id" => 2,
-                    "price" => '49.47',
-                    "name" => 'Atlantic Superstore',
-                    "time" => '3h ago',
-                    "date" => '2023-01-23T13:23Z',
-                    "isDebit" => true,
-                ],
-                [
-                    "id" => 1,
-                    "price" => '402.67',
-                    "name" => 'Walmart',
-                    "time" => '3h ago',
-                    "date" => '2023-01-23T13:23Z',
-                    "isDebit" => false,
-                ],
-            ],
-        ]);
-    })->middleware(['verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['verified'])->name('dashboard');
 
     Route::group(['prefix' => 'expense'], function (){
         Route::get('/', function () {
