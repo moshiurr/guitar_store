@@ -19,9 +19,10 @@ class TransactionServices
                             ->whereMonth('created_at', date('m'));
 
         $transactions = $query->get();
+        $expenditure = round($query->sum('price'),2);
 
         return [
-            'total_expenses' => '5000',
+            'total_expenses' => $expenditure,
             'recent_transactions' => $transactions
         ];
     }
